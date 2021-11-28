@@ -1,0 +1,276 @@
+------------------------导航获取
+obj=document.querySelector("#SUBD1605066532559803 > div");
+data={};
+data.logosrc=obj.querySelector('div.nav_logo > a > img').src;
+data.nav=[];
+Array.from(obj.querySelectorAll('div.nav_list>div')).forEach(
+(e)=>{
+o={};
+o.text=e.querySelector('a')!==null?e.querySelector('a').innerText:null;
+o.isGroup=e.querySelector('i.group')!==null;
+o.isHot=e.querySelector('i.hot')!==null;
+o.isIcon=e.className.includes('icon');
+o.isBorder=e.className.includes('nav_border');
+data.nav.push(o)});
+------------------------------二级导航
+obj = document.querySelectorAll("#SUBD1605066532559805>div");
+data = {};
+data.hoverList = [];
+obj.forEach((e, index) => {
+    o = [];
+    if (index < 4) {
+        e.querySelectorAll('ul').forEach((e) => {
+            t = [];
+            e.querySelectorAll('li').forEach((e) => { t.push(e.innerText) })
+            o.push(t);
+        });
+        data.hoverList.push(o);
+    }
+});
+--------------------------------------app
+obj=document.querySelectorAll("#SUBD1605066532559805 > div.ELMTmC93YuE3XiFnsif9VYod201111 > div > div>div");
+data={};
+titleL=[];
+obj[0].querySelectorAll('ul li').forEach(
+(e)=>{
+titleL.push(e.innerText);
+});
+data.titleList=titleL;
+content=[];
+Array.from(obj[1].children).forEach(
+(e)=>{
+arr=[];
+e.querySelectorAll('ul>li').forEach(
+(e)=>{
+o={};
+o.text=e.innerText;
+o.isImage=e.querySelector('img')!==null;
+if(e.querySelector('img'))o.imgsrc=e.querySelector('img').src;
+arr.push(o)});
+content.push(arr);});data.content=content;
+--------------------------------------end
+---------首页轮播图
+(function () {
+    var a = document.querySelector('#firstRotation').querySelectorAll('.txt');
+    var b = document.querySelector('#firstRotation').querySelectorAll('.boxImage .slide .img img');
+    var data = [];
+    a.forEach((e, index) => {
+        var o = {};
+        o.title = e.innerText; o.imgsrc = b[index].currentSrc;
+        data.push(o);
+    });
+    console.log(data);
+})();
+--------------------end
+
+-----------------------------------要闻
+obj = document.querySelectorAll("#SUBD1605066532559821 > div>div:not(:last-child)");
+data = {};
+head = {};
+head.title = obj[0].querySelector('div.head>h2').innerText;
+head.list = [];
+Array.from(obj[0].querySelectorAll('div.head>ul>li')).forEach((e) => {
+    o1 = {};
+    o1.att = e.querySelector('.att').innerText;
+    o1.text = e.querySelectorAll('a')[1].innerText;
+    head.list.push(o1);
+});
+data.left = {};
+data.left.head = head;
+middle = {};
+left = [];
+right = {};
+Array.from(obj[0].querySelectorAll('#SUBD1605066532559826 ul li')).forEach((e) => {
+    o2 = {};
+    if (e.className.includes('bold')) {
+        o2.isTitle = true;
+    }
+    else {
+        o2.isTitle = false;
+    }
+    o2.text = e.innerText;
+    left.push(o2);
+});
+list2 = [];
+Array.from(obj[0].querySelectorAll('#SUBD1605066532559828 > div.ELMTJHwg9t6FrM76tehFrTmD201111.list_lt.list_lt3 ul li')).forEach((e) => {
+    o3 = {};
+    if (e.className.includes('bold')) {
+        o3.isTitle = true;
+    }
+    else {
+        o3.isTitle = false;
+    }
+    o3.text = e.innerText;
+    list2.push(o3);
+});
+pic = [];
+Array.from(obj[0].querySelectorAll('#SUBD1605066532559828 > div.ELMTJwBkD0yYNJVRDSpNZDnA201111.picTitle > ul li')).forEach((e) => {
+    o4 = {};
+    o4.imgsrc = e.querySelector('img').src;
+    o4.text = e.querySelector('.text a').innerText;
+    o4.textBots = e.querySelector('.textBot a').innerText;
+    pic.push(o4);
+});
+middle2 = {};
+left2 = [];
+Array.from(obj[0].querySelectorAll('#SUBD1605066532559834 > div > ul li')).forEach((e) => {
+    o2 = {};
+    if (e.className.includes('bold')) {
+        o2.isTitle = true;
+    }
+    else {
+        o2.isTitle = false;
+    }
+    o2.text = e.innerText;
+    left2.push(o2);
+});
+pic2 = [];
+Array.from(obj[0].querySelectorAll('#SUBD1605066532559832 > div > ul li')).forEach((e) => {
+    o4 = {};
+    o4.imgsrc = e.querySelector('img').src;
+    o4.text = e.querySelector('.text a').innerText;
+    o4.textBots = e.querySelector('.textBot a').innerText;
+    pic2.push(o4);
+});
+right.pic = pic;
+right.list = list2;
+middle.left = left;
+middle.right = right;
+middle2.left = { 'pic': pic2 };
+middle2.right = left2;
+data.left.middle = [];
+data.left.middle.push(middle);
+data.left.middle.push(middle2);
+
+hot = {};
+hot.mhb = {};
+hot.mhb.heats = [];
+hot.mbd = {};
+obj2 = obj[0].querySelector("#hotspot_m > div.mhd").children;
+hot.mhb.title = obj2[0].innerText;
+heats = []; Array.from(obj2[1].children).forEach((e) => { heats.push(e.innerText) });
+hot.mhb.heats = heats;
+
+hot.mbd.img = [];
+Array.from(obj[0].querySelectorAll('#hotspot > ul.img_hover>li')).forEach((e) => {
+    hot.mbd.img.push(e.querySelector('img').src);
+});
+hot.mbd.hover = [];
+Array.from(obj[0].querySelectorAll('#hotspot > ul.img_enlarge>li')).forEach((e) => {
+    hot.mbd.hover.push(e.querySelector('img').src);
+});
+data.left.hot = hot;
+data.right = [];
+Array.from(obj[1].querySelectorAll('#SUBD1605066532559839 > div.ELMTGjfbNDqwSOrwsz8vCATk201111.changeList > div.con li')).forEach((e) => {
+    o = {};
+    o.imgsrc = e.querySelector('.image img').src;
+    o.option = e.querySelector('.title .text').innerText;
+    o.col = e.querySelector('.colum').innerText;
+    data.right.push(o);
+});
+--------------------------------------end
+
+
+
+
+
+
+--------------------体育
+------标题--------
+obj=document.querySelector("#nav06 > div.mhd").children;
+data={};
+data.title=obj[0].innerText;
+heats=[];Array.from(obj[2].children).forEach((e)=>{heats.push(e.innerText)});
+data.heat=heats;data.option=obj[1].innerText;
+------------------------------体育视频
+obj=document.querySelector("#SUBD1605066532560899 > div.ELMTH4Xa0DEiQ7XDZztZnzoB201111.videoTitle");
+imgStr=obj.getElementsByTagName('img')[0].src;titleStr=obj.getElementsByClassName('title')[0].innerText;
+mp4Str=obj.getElementsByTagName('video')[0].src;data={};
+data.mp4=mp4Str;
+data.title=titleStr;
+data.img=imgStr;
+-----------------------------------左下展示图片
+obj=document.querySelectorAll("#SUBD1605066532560899 > div.ELMTUWilmNUbxnSif7TKoJfG201111.picTitle > ul>li");
+data=[];Array.from(obj).forEach((e)=>{
+o={};src=e.querySelector('img').src;
+o.imgsrc=src;text=e.querySelector('.text a').innerText;
+o.text=text;textB=[];a=e.querySelectorAll('.textBot a');
+Array.from(a).forEach((e)=>{textB.push(e.innerText)});o.textBots=textB;data.push(o)});
+-----------------------------------右上展示
+obj=document.querySelectorAll("#sports > ul li");
+data=[];Array.from(obj).forEach((e)=>{o={};src=e.querySelector('img').src;
+o.imgsrc=src;text=e.querySelector('.text a').innerText;
+o.text=text;textB=[];a=e.querySelectorAll('.textBot a');
+Array.from(a).forEach((e)=>{textB.push(e.innerText)});o.textBots=textB;data.push(o)});
+------------------------------end
+---------------------------视频
+---------------频道
+obj=document.querySelectorAll("#SUBD1605066532559877 > div.ELMTzlyFT2uY4sV3RDpOOLr1201111.videoChannel > ul>li");
+data=[];
+Array.from(obj).forEach((e)=>{o={};o.bgSrc=e.querySelector('.bg_img img').src;o.imgSrc=e.querySelector('.img img').src;
+o.title=e.querySelector('.txt h3').innerText;
+o.text=e.querySelector('.txt p').innerText;data.push(o)});
+------------------------------------end
+----------------------------------央视看点
+-----------------------节目预告
+obj=document.querySelector("#SUBD1605080231030472 > div.guides").children;
+data={};data.text=obj[0].innerText;
+data.imgsrc=obj[1].querySelector('img').src;
+data.guidesList=[]; Array.from( obj[2].querySelectorAll('ul li')).forEach(
+(e)=>{
+o={};
+o.h3=e.querySelector('h3').innerText;
+o.p1=e.querySelector('p:nth-child(2)').innerText;
+o.p2=e.querySelector('p:nth-child(3)').innerText;
+data.guidesList.push(o);});
+-------------------栏目大全
+obj=document.querySelector("#SUBD1605080231030472 > div.columnList").children;
+data={};data.title=obj[0].innerText;data.columnList=[];
+Array.from(obj[1].children).forEach((e)=>{
+o={};
+o.bg=getComputedStyle(e,null)['backgroundImage'].replaceAll("\"","").replace("url(","").replace(")","");
+o.text=e.innerText;data.columnList.push(o);
+});
+-----------------------------------end
+------------------------------产经
+--------------------二级列表
+obj = document.querySelectorAll('.other');
+data = [];
+Array.from(obj).forEach((e1) => {
+    s = [];
+    Array.from(e1.querySelectorAll('.secondaryList')).forEach((e, index) => {
+        o = {};
+        o.background = e.querySelector('img').src;
+        o.head = {};
+        o.head.content = e.querySelector('div.head-top > div.title > p').innerText;
+        o.head.title = e.querySelector('div.head-top > div.title > h3').innerText;
+        o.head.img = e.querySelector('div.head-top > div.img > a > img').src;
+        o.list = [];
+        Array.from(e.querySelectorAll('ul > li')).forEach((e) => {
+            t = {};
+            t.img = e.querySelector('img').src; t.text = e.querySelector('.text').innerText;
+            o.list.push(t)
+        });
+        o.more = e.querySelector('.more').innerText;
+        o.title = (e1.querySelectorAll('.label span')[index]) ? (e1.querySelectorAll('.label span')[index]).innerText : (e1.querySelectorAll('.label span')[index - 1]).innerText;
+        s.push(o);
+    }
+    );
+    data.push(s);
+});
+---------------------------------end
+------------------------------页脚
+obj=document.querySelector("#SUBD1605257085293592 > div.ELMTBiVGqDRZC1KmjF9JYolV201113.footer_hd > div > div");
+data={};
+data.links=[];
+Array.from(obj.querySelectorAll('dl')).forEach(
+(e)=>{
+o={};
+o.title=e.querySelector('dt').innerText;
+o.list=[];Array.from(e.querySelectorAll('li')).forEach((e)=>{
+o.list.push(e.innerText);});
+data.links.push(o)});
+data.topIcon=[];
+Array.from(obj.querySelectorAll("div.topIcon>a")).forEach((e)=>{
+t={};t.text=e.innerText;t.imgsrc=e.querySelector('img').src;data.topIcon.push(t)})
+------------------------------end

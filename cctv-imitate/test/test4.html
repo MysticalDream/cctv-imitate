@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            justify-content: center;
+            align-items: center;
+        }
+
+        ul {
+            list-style: none;
+            border: 1px solid #e7e7e7;
+            user-select: none;
+        }
+
+        li {
+            text-align: center;
+            width: 100px;
+            height: 32px;
+        }
+
+        li:hover {
+            background-color: tomato;
+        }
+    </style>
+</head>
+
+<body>
+    <ul id="sort">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+        <li>10</li>
+    </ul>
+    <script>
+        var ulWrap = document.querySelector("#sort");
+        var nodeLists = document.querySelectorAll('#sort>li');
+        var lists = [];
+        Array.from(nodeLists).forEach((el, index) => {
+            lists.push({ 'el': el, 'sort': index, 'index': index });
+        });
+        ulWrap.addEventListener("mousedown", (e) => {
+            var moving = true;
+            var moveFunc = (e) => {
+                if (moving) {
+
+                }
+            };
+            ulWrap.addEventListener("mousemove", moveFunc);
+
+            ulWrap.addEventListener("mouseup", (e) => {
+                moving = false;
+                ulWrap.removeEventListener("mousemove", moveFunc);
+                moveUpItem(lists);
+            });
+        });
+
+        function moveUpItem(lists) {
+            Array.from(lists).sort(compareFunc("sort"));
+            Array.from(lists).forEach((e) => {
+                ulWrap.appendChild(e.el);
+            });
+        }
+
+        function compareFunc(p) {
+            return function (obj1, obj2) {
+                var v1 = obj1[p];
+                var v2 = obj2[p];
+                if (!isNaN(Number(v1)) && !isNaN(Number(v2))) {
+                    v1 = Number(v1);
+                    v2 = Number(v2);
+                }
+                if (v1 < v2) {
+                    return -1;
+                }
+                else if (v1 > v2) {
+                    return 1;
+                }
+                else {
+                    return 0;
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

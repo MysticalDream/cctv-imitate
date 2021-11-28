@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        li {
+            width: 100px;
+            height: 32px;
+            text-align: center;
+        }
+
+        button {
+            width: 90px;
+            height: 90%;
+            padding: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+        <li>10</li>
+        <li><button>点击</button></li>
+    </ul>
+    <script>
+        var btn = document.querySelector('button');
+        var ulWrap = document.querySelector('ul');
+        var lists = document.querySelectorAll('ul>li:not(:last-child)');
+        btn.onclick = () => {
+            ulWrap.insertBefore(lists[lists.length - 1], lists[lists.length - 2]);
+            lists = document.querySelectorAll('ul>li:not(:last-child)');
+        }
+    </script>
+</body>
+
+</html>
